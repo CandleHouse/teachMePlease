@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" font-family="ui-sans-serif, system-ui, 'Segoe UI', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <!-- 箭头标记 -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <linearGradient id="imgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1100" height="640" fill="#f8fafc"/>
+
+  <!-- 标题 -->
+  <text x="550" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">MediaPipe 手部检测 · 两阶段神经网络流水线</text>
+  <text x="550" y="60" text-anchor="middle" font-size="13" fill="#64748b">输入一张图 → 输出 21 个关键点坐标</text>
+
+  <!-- ═══════════ 输入图像 ═══════════ -->
+  <g>
+    <rect x="30" y="270" width="110" height="110" rx="8" fill="url(#imgGrad)" stroke="#334155" stroke-width="2"/>
+    <!-- 简笔手掌 -->
+    <g stroke="#7dd3fc" stroke-width="2.5" fill="none" stroke-linecap="round" transform="translate(85,325)">
+      <line x1="0" y1="22" x2="0" y2="-18"/>
+      <line x1="0" y1="5" x2="-15" y2="-5"/>
+      <line x1="0" y1="5" x2="-13" y2="-22"/>
+      <line x1="0" y1="5" x2="0" y2="-28"/>
+      <line x1="0" y1="5" x2="13" y2="-22"/>
+      <line x1="0" y1="5" x2="15" y2="-5"/>
+      <circle cx="-15" cy="-5" r="2" fill="#fde047"/>
+      <circle cx="-13" cy="-22" r="2" fill="#fde047"/>
+      <circle cx="0" cy="-28" r="2" fill="#fde047"/>
+      <circle cx="13" cy="-22" r="2" fill="#fde047"/>
+      <circle cx="15" cy="-5" r="2" fill="#fde047"/>
+    </g>
+    <text x="85" y="400" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">摄像头帧</text>
+    <text x="85" y="416" text-anchor="middle" font-size="11" fill="#64748b">192×192×3</text>
+  </g>
+  <line x1="145" y1="325" x2="185" y2="325" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ═══════════ 第一阶段：手掌检测器 BlazePalm ═══════════ -->
+  <g>
+    <rect x="190" y="120" width="230" height="410" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="6,4"/>
+    <text x="305" y="145" text-anchor="middle" font-size="14" font-weight="700" fill="#1d4ed8">① 手掌检测器 BlazePalm</text>
+    <text x="305" y="163" text-anchor="middle" font-size="11" fill="#475569">"手在画面哪里？"</text>
+
+    <!-- 卷积块们 -->
+    <g font-size="11" fill="#0f172a">
+      <rect x="210" y="195" width="190" height="40" rx="6" fill="#bfdbfe" stroke="#3b82f6"/>
+      <text x="305" y="212" text-anchor="middle" font-size="11" font-weight="600">卷积层 Conv 3×3</text>
+      <text x="305" y="227" text-anchor="middle" font-size="10" fill="#475569">+ ReLU + BatchNorm</text>
+
+      <rect x="210" y="250" width="190" height="40" rx="6" fill="#bfdbfe" stroke="#3b82f6"/>
+      <text x="305" y="267" text-anchor="middle" font-size="11" font-weight="600">深度可分离卷积 ×N</text>
+      <text x="305" y="282" text-anchor="middle" font-size="10" fill="#475569">逐步降采样 (MobileNet)</text>
+
+      <rect x="210" y="305" width="190" height="40" rx="6" fill="#dbeafe" stroke="#3b82f6"/>
+      <text x="305" y="322" text-anchor="middle" font-size="11" font-weight="600">特征图 Feature Map</text>
+      <text x="305" y="337" text-anchor="middle" font-size="10" fill="#475569">空间特征被压缩</text>
+    </g>
+
+    <line x1="305" y1="345" x2="305" y2="365" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- 两个输出头 -->
+    <rect x="210" y="370" width="90" height="70" rx="6" fill="#fde68a" stroke="#d97706"/>
+    <text x="255" y="390" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">分类头</text>
+    <text x="255" y="406" text-anchor="middle" font-size="10" fill="#7c2d12">有手?</text>
+    <text x="255" y="421" text-anchor="middle" font-size="10" fill="#7c2d12">置信度</text>
+    <text x="255" y="434" text-anchor="middle" font-size="9" fill="#92400e">sigmoid</text>
+
+    <rect x="310" y="370" width="90" height="70" rx="6" fill="#bbf7d0" stroke="#16a34a"/>
+    <text x="355" y="390" text-anchor="middle" font-size="10" font-weight="700" fill="#14532d">回归头</text>
+    <text x="355" y="406" text-anchor="middle" font-size="10" fill="#14532d">边界框</text>
+    <text x="355" y="421" text-anchor="middle" font-size="10" fill="#14532d">中心+宽高</text>
+    <text x="355" y="434" text-anchor="middle" font-size="9" fill="#14532d">4 个数</text>
+
+    <text x="305" y="470" text-anchor="middle" font-size="10" font-style="italic" fill="#64748b">↓ 输出：手掌的旋转矩形框 + 置信度</text>
+    <text x="305" y="505" text-anchor="middle" font-size="10" fill="#475569">裁剪 + 旋转对齐 → 标准朝向的手掌</text>
+  </g>
+
+  <line x1="425" y1="325" x2="465" y2="325" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="445" y="316" text-anchor="middle" font-size="10" fill="#64748b">裁出</text>
+
+  <!-- ═══════════ 第二阶段：关键点回归 ═══════════ -->
+  <g>
+    <rect x="470" y="120" width="240" height="410" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" stroke-dasharray="6,4"/>
+    <text x="590" y="145" text-anchor="middle" font-size="14" font-weight="700" fill="#15803d">② 关键点回归网络</text>
+    <text x="590" y="163" text-anchor="middle" font-size="11" fill="#475569">"21 个点分别在哪？"</text>
+
+    <g font-size="11" fill="#0f172a">
+      <rect x="490" y="195" width="200" height="40" rx="6" fill="#bbf7d0" stroke="#16a34a"/>
+      <text x="590" y="212" text-anchor="middle" font-size="11" font-weight="600">卷积特征提取</text>
+      <text x="590" y="227" text-anchor="middle" font-size="10" fill="#475569">提取手部纹理/形状</text>
+
+      <rect x="490" y="250" width="200" height="40" rx="6" fill="#bbf7d0" stroke="#16a34a"/>
+      <text x="590" y="267" text-anchor="middle" font-size="11" font-weight="600">全连接层 FC</text>
+      <text x="590" y="282" text-anchor="middle" font-size="10" fill="#475569">把二维特征拍平成向量</text>
+    </g>
+
+    <line x1="590" y1="290" x2="590" y2="310" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- 回归输出头 -->
+    <rect x="490" y="315" width="200" height="60" rx="6" fill="#fef3c7" stroke="#d97706"/>
+    <text x="590" y="335" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">回归输出层 (regression)</text>
+    <text x="590" y="352" text-anchor="middle" font-size="11" fill="#7c2d12">21 × 3 = 63 个数值</text>
+    <text x="590" y="367" text-anchor="middle" font-size="10" fill="#92400e">每个点 (x,y,z)</text>
+
+    <text x="590" y="405" text-anchor="middle" font-size="10" font-style="italic" fill="#64748b">关键区别：</text>
+    <text x="590" y="423" text-anchor="middle" font-size="10" fill="#475569">最后一层不分类，</text>
+    <text x="590" y="438" text-anchor="middle" font-size="10" fill="#475569">而是直接吐出 63 个坐标</text>
+    <text x="590" y="453" text-anchor="middle" font-size="10" font-weight="600" fill="#15803d">→ 回归 (regression)</text>
+    <text x="590" y="475" text-anchor="middle" font-size="10" fill="#64748b">训练目标：让人工标注的</text>
+    <text x="590" y="490" text-anchor="middle" font-size="10" fill="#64748b">真值坐标与预测坐标的差最小</text>
+  </g>
+
+  <line x1="715" y1="325" x2="755" y2="325" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ═══════════ 输出：21 个关键点 ═══════════ -->
+  <g>
+    <rect x="760" y="200" width="170" height="250" rx="10" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
+    <text x="845" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">21 个关键点</text>
+    <!-- 手骨架 -->
+    <g transform="translate(845,330)" stroke="#0f172a" stroke-width="1.8" fill="#0f172a">
+      <!-- 连线 -->
+      <g stroke="#60a5fa" stroke-width="2" fill="none">
+        <line x1="0" y1="45" x2="0" y2="10"/>
+        <line x1="0" y1="10" x2="-30" y2="-5"/>
+        <line x1="0" y1="10" x2="-26" y2="-40"/>
+        <line x1="0" y1="10" x2="0" y2="-50"/>
+        <line x1="0" y1="10" x2="26" y2="-40"/>
+        <line x1="0" y1="10" x2="30" y2="-5"/>
+        <line x1="-30" y1="-5" x2="-36" y2="-25"/>
+        <line x1="-26" y1="-40" x2="-32" y2="-58"/>
+        <line x1="0" y1="-50" x2="0" y2="-70"/>
+        <line x1="26" y1="-40" x2="32" y2="-58"/>
+        <line x1="30" y1="-5" x2="36" y2="-25"/>
+      </g>
+      <!-- 点 -->
+      <circle cx="0" cy="45" r="3" fill="#94a3b8"/>
+      <circle cx="-30" cy="-5" r="3.5" fill="#fde047"/>
+      <circle cx="-26" cy="-40" r="3.5" fill="#fde047"/>
+      <circle cx="0" cy="-50" r="3.5" fill="#fde047"/>
+      <circle cx="26" cy="-40" r="3.5" fill="#fde047"/>
+      <circle cx="30" cy="-5" r="3.5" fill="#fde047"/>
+      <circle cx="0" cy="10" r="2.5" fill="#94a3b8"/>
+    </g>
+    <text x="845" y="415" text-anchor="middle" font-size="10" fill="#475569">每个点 = (x, y, z)</text>
+    <text x="845" y="432" text-anchor="middle" font-size="10" fill="#475569">坐标已归一化到 [0, 1]</text>
+  </g>
+
+  <line x1="935" y1="325" x2="975" y2="325" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <text x="955" y="316" text-anchor="middle" font-size="10" fill="#2563eb">交给</text>
+
+  <!-- ═══════════ 我们的规则代码 ═══════════ -->
+  <g>
+    <rect x="980" y="245" width="100" height="160" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+    <text x="1030" y="270" text-anchor="middle" font-size="11" font-weight="700" fill="#991b1b">③ 我们的代码</text>
+    <text x="1030" y="290" text-anchor="middle" font-size="10" fill="#7f1d1d">count_fingers()</text>
+    <text x="1030" y="312" text-anchor="middle" font-size="9" fill="#7f1d1d">比较 指尖 vs</text>
+    <text x="1030" y="325" text-anchor="middle" font-size="9" fill="#7f1d1d">指根 的坐标</text>
+    <text x="1030" y="348" text-anchor="middle" font-size="9" fill="#7f1d1d">（纯几何 if）</text>
+    <text x="1030" y="375" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">→ 5</text>
+    <text x="1030" y="394" text-anchor="middle" font-size="9" fill="#7f1d1d">阿拉伯数字</text>
+  </g>
+
+  <!-- ═══════════ 底部图例 ═══════════ -->
+  <g transform="translate(30,560)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#0f172a">图例：</text>
+    <rect x="55" y="-10" width="14" height="14" rx="3" fill="#bfdbfe" stroke="#3b82f6"/>
+    <text x="74" y="1" font-size="11" fill="#334155">卷积层（学特征）</text>
+    <rect x="200" y="-10" width="14" height="14" rx="3" fill="#fde68a" stroke="#d97706"/>
+    <text x="219" y="1" font-size="11" fill="#334155">分类头（离散答案）</text>
+    <rect x="355" y="-10" width="14" height="14" rx="3" fill="#bbf7d0" stroke="#16a34a"/>
+    <text x="374" y="1" font-size="11" fill="#334155">回归头（连续数值）</text>
+    <rect x="510" y="-10" width="14" height="14" rx="3" fill="#fef2f2" stroke="#dc2626"/>
+    <text x="529" y="1" font-size="11" fill="#334155">我们写的规则（非 AI）</text>
+  </g>
+  <text x="30" y="600" font-size="10" fill="#94a3b8">两阶段设计的好处：① 轻量快速先定位 → ② 只在裁出的小图上跑昂贵的 21 点回归，整机 CPU 也能 30fps。</text>
+</svg>

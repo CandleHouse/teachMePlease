@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" font-family="ui-sans-serif, system-ui, 'Segoe UI', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="620" fill="#f8fafc"/>
+
+  <!-- 标题 -->
+  <text x="500" y="38" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">MediaPipe 手部 21 个关键点 · 编号图</text>
+  <text x="500" y="60" text-anchor="middle" font-size="12" fill="#64748b">编号固定 · 代码里 FINGER_TIPS=[4,8,12,16,20]、FINGER_PIPS=[3,6,10,14,18] 即来源于此</text>
+
+  <!-- ═══════════ 左：手骨架大图 ═══════════ -->
+  <g transform="translate(280,90)">
+    <text x="0" y="0" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">右手骨架（掌心朝你）</text>
+
+    <!-- 骨架连线 -->
+    <g stroke="#60a5fa" stroke-width="3" fill="none" stroke-linecap="round">
+      <!-- 手腕到手掌根 -->
+      <line x1="0" y1="430" x2="0" y2="370"/>
+      <!-- 拇指 0-1-2-3-4 -->
+      <line x1="0" y1="430" x2="-55" y2="395"/>
+      <line x1="-55" y1="395" x2="-95" y2="360"/>
+      <line x1="-95" y1="360" x2="-120" y2="330"/>
+      <line x1="-120" y1="330" x2="-140" y2="300"/>
+      <!-- 食指 0-5-6-7-8 (经掌指关节5) -->
+      <line x1="0" y1="370" x2="-50" y2="330"/>
+      <line x1="-50" y1="330" x2="-60" y2="240"/>
+      <line x1="-60" y1="240" x2="-68" y2="150"/>
+      <line x1="-68" y1="150" x2="-72" y2="70"/>
+      <!-- 中指 0-9-10-11-12 -->
+      <line x1="0" y1="370" x2="-15" y2="325"/>
+      <line x1="-15" y1="325" x2="-18" y2="225"/>
+      <line x1="-18" y1="225" x2="-20" y2="130"/>
+      <line x1="-20" y1="130" x2="-22" y2="45"/>
+      <!-- 无名指 0-13-14-15-16 -->
+      <line x1="0" y1="370" x2="25" y2="328"/>
+      <line x1="25" y1="328" x2="32" y2="232"/>
+      <line x1="32" y1="232" x2="38" y2="140"/>
+      <line x1="38" y1="140" x2="42" y2="60"/>
+      <!-- 小指 0-17-18-19-20 -->
+      <line x1="0" y1="370" x2="62" y2="335"/>
+      <line x1="62" y1="335" x2="78" y2="255"/>
+      <line x1="78" y1="255" x2="92" y2="180"/>
+      <line x1="92" y1="180" x2="102" y2="115"/>
+      <!-- 掌指关节连成掌 -->
+      <line x1="-50" y1="330" x2="-15" y2="325"/>
+      <line x1="-15" y1="325" x2="25" y2="328"/>
+      <line x1="25" y1="328" x2="62" y2="335"/>
+    </g>
+
+    <!-- 关节点 + 编号 -->
+    <!-- 0 手腕 -->
+    <circle cx="0" cy="430" r="9" fill="#64748b" stroke="#334155" stroke-width="2"/>
+    <text x="0" y="455" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">0</text>
+    <text x="0" y="471" text-anchor="middle" font-size="9" fill="#64748b">手腕</text>
+
+    <!-- 拇指 1,2,3,4 -->
+    <circle cx="-55" cy="395" r="6" fill="#cbd5e1" stroke="#94a3b8"/>
+    <text x="-60" y="412" text-anchor="middle" font-size="11" fill="#475569">1</text>
+    <circle cx="-95" cy="360" r="6" fill="#cbd5e1" stroke="#94a3b8"/>
+    <text x="-103" y="377" text-anchor="middle" font-size="11" fill="#475569">2</text>
+    <circle cx="-120" cy="330" r="6" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+    <text x="-132" y="333" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">3</text>
+    <circle cx="-140" cy="300" r="10" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/>
+    <text x="-157" y="305" text-anchor="middle" font-size="13" font-weight="700" fill="#7c2d12">4</text>
+
+    <!-- 食指掌指关节 5, 6,7,8 -->
+    <circle cx="-50" cy="330" r="6" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="-58" y="322" text-anchor="middle" font-size="11" fill="#14532d">5</text>
+    <circle cx="-60" cy="240" r="6" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+    <text x="-78" y="244" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">6</text>
+    <circle cx="-68" cy="150" r="6" fill="#cbd5e1" stroke="#94a3b8"/>
+    <text x="-86" y="154" text-anchor="middle" font-size="11" fill="#475569">7</text>
+    <circle cx="-72" cy="70" r="10" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/>
+    <text x="-90" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#7c2d12">8</text>
+
+    <!-- 中指 9,10,11,12 -->
+    <circle cx="-15" cy="325" r="6" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="-15" y="346" text-anchor="middle" font-size="11" fill="#14532d">9</text>
+    <circle cx="-18" cy="225" r="6" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+    <text x="-36" y="229" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">10</text>
+    <circle cx="-20" cy="130" r="6" fill="#cbd5e1" stroke="#94a3b8"/>
+    <text x="-38" y="134" text-anchor="middle" font-size="11" fill="#475569">11</text>
+    <circle cx="-22" cy="45" r="10" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/>
+    <text x="-40" y="49" text-anchor="middle" font-size="13" font-weight="700" fill="#7c2d12">12</text>
+
+    <!-- 无名指 13,14,15,16 -->
+    <circle cx="25" cy="328" r="6" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="25" y="349" text-anchor="middle" font-size="11" fill="#14532d">13</text>
+    <circle cx="32" cy="232" r="6" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+    <text x="50" y="236" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">14</text>
+    <circle cx="38" cy="140" r="6" fill="#cbd5e1" stroke="#94a3b8"/>
+    <text x="56" y="144" text-anchor="middle" font-size="11" fill="#475569">15</text>
+    <circle cx="42" cy="60" r="10" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/>
+    <text x="60" y="64" text-anchor="middle" font-size="13" font-weight="700" fill="#7c2d12">16</text>
+
+    <!-- 小指 17,18,19,20 -->
+    <circle cx="62" cy="335" r="6" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="62" y="356" text-anchor="middle" font-size="11" fill="#14532d">17</text>
+    <circle cx="78" cy="255" r="6" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+    <text x="96" y="259" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">18</text>
+    <circle cx="92" cy="180" r="6" fill="#cbd5e1" stroke="#94a3b8"/>
+    <text x="110" y="184" text-anchor="middle" font-size="11" fill="#475569">19</text>
+    <circle cx="102" cy="115" r="10" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/>
+    <text x="120" y="119" text-anchor="middle" font-size="13" font-weight="700" fill="#7c2d12">20</text>
+  </g>
+
+  <!-- ═══════════ 右：图例 + 编号规律 ═══════════ -->
+  <g transform="translate(640,95)">
+    <rect x="0" y="0" width="330" height="200" rx="10" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
+    <text x="165" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">编号规律（每根手指 4 个点）</text>
+
+    <!-- 表格 -->
+    <g font-size="11">
+      <rect x="15" y="42" width="300" height="24" fill="#f1f5f9"/>
+      <text x="25" y="58" font-weight="600" fill="#334155">手指</text>
+      <text x="120" y="58" font-weight="600" fill="#334155">掌指关节MCP</text>
+      <text x="220" y="58" font-weight="600" fill="#334155">PIP</text>
+      <text x="285" y="58" font-weight="600" fill="#334155">指尖</text>
+
+      <text x="25" y="80" fill="#475569">拇指</text>
+      <text x="120" y="80" fill="#64748b">1</text>
+      <text x="220" y="80" fill="#b45309" font-weight="600">3</text>
+      <text x="285" y="80" fill="#b45309" font-weight="700">4</text>
+
+      <text x="25" y="100" fill="#475569">食指</text>
+      <text x="120" y="100" fill="#15803d">5</text>
+      <text x="220" y="100" fill="#b45309" font-weight="600">6</text>
+      <text x="285" y="100" fill="#b45309" font-weight="700">8</text>
+
+      <text x="25" y="120" fill="#475569">中指</text>
+      <text x="120" y="120" fill="#15803d">9</text>
+      <text x="220" y="120" fill="#b45309" font-weight="600">10</text>
+      <text x="285" y="120" fill="#b45309" font-weight="700">12</text>
+
+      <text x="25" y="140" fill="#475569">无名指</text>
+      <text x="120" y="140" fill="#15803d">13</text>
+      <text x="220" y="140" fill="#b45309" font-weight="600">14</text>
+      <text x="285" y="140" fill="#b45309" font-weight="700">16</text>
+
+      <text x="25" y="160" fill="#475569">小指</text>
+      <text x="120" y="160" fill="#15803d">17</text>
+      <text x="220" y="160" fill="#b45309" font-weight="600">18</text>
+      <text x="285" y="160" fill="#b45309" font-weight="700">20</text>
+
+      <text x="165" y="186" text-anchor="middle" font-size="10" font-style="italic" fill="#64748b">0 号 = 手腕；指尖 = 4 的倍数（4,8,12,16,20）</text>
+    </g>
+  </g>
+
+  <!-- 颜色图例 -->
+  <g transform="translate(640,315)">
+    <rect x="0" y="0" width="330" height="150" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="165" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">颜色含义</text>
+
+    <circle cx="30" cy="55" r="9" fill="#64748b" stroke="#334155"/>
+    <text x="50" y="59" font-size="11" fill="#334155">手腕（0）—— 骨架起点</text>
+
+    <circle cx="30" cy="80" r="7" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="50" y="84" font-size="11" fill="#334155">掌指关节 MCP（1,5,9,13,17）—— 手指根</text>
+
+    <circle cx="30" cy="105" r="7" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+    <text x="50" y="109" font-size="11" fill="#334155">PIP 关节（3,6,10,14,18）—— 第二指节</text>
+
+    <circle cx="30" cy="130" r="10" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/>
+    <text x="50" y="134" font-size="11" font-weight="600" fill="#334155">指尖（4,8,12,16,20）—— 判断伸/弯的关键</text>
+  </g>
+
+  <!-- 代码对照说明 -->
+  <g transform="translate(50,540)">
+    <rect x="0" y="0" width="900" height="65" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="15" y="24" font-size="12" font-weight="700" fill="#7f1d1d">为什么这张图重要：项目核心算法就建立在这些编号上</text>
+    <text x="15" y="44" font-size="11" fill="#991b1b">count_fingers() 比较「指尖 [4,8,12,16,20]」与「PIP [3,6,10,14,18]」的坐标 —— 看指尖（黄大圈）是否在 PIP（黄小圈）的上方，就能判断每根手指伸没伸直。</text>
+    <text x="15" y="60" font-size="11" fill="#991b1b">所以记住：黄色大圈 = 指尖 = FINGER_TIPS，黄色小圈 = PIP 关节 = FINGER_PIPS，两者一一对应。</text>
+  </g>
+</svg>
